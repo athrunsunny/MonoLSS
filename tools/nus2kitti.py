@@ -103,9 +103,9 @@ def compute_box_3d(obj, P, return2d_mat=False):
     # 1、将3D边界框的角点坐标从对象坐标系转换到相机坐标系。它使用了旋转矩阵R
     corners_3d = np.dot(R, np.vstack([x_corners, y_corners, z_corners]))
     # 3D边界框的坐标进行平移
-    corners_3d[0, :] = corners_3d[0, :] + obj.t[0]
-    corners_3d[1, :] = corners_3d[1, :] + obj.t[1]
-    corners_3d[2, :] = corners_3d[2, :] + obj.t[2]
+    corners_3d[0, :] = corners_3d[0, :] + obj.pos[0]
+    corners_3d[1, :] = corners_3d[1, :] + obj.pos[1]
+    corners_3d[2, :] = corners_3d[2, :] + obj.pos[2]
 
     if not return2d_mat:
         return np.transpose(corners_3d)
