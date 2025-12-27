@@ -233,10 +233,10 @@ def plot_rect3d_on_img(img,
         singleCorner = corners * pointMultiplier
         lineColor = cv2Palette[0]
 
-        cv2.polylines(img, [corners[[2, 3, 7, 6]].astype(int)], True, lineColor, 1, cv2.LINE_AA, shift)
-        cv2.polylines(img, [corners[:4].astype(int)], True, lineColor, 1, cv2.LINE_AA, shift)
-        cv2.polylines(img, [corners[4:].astype(int)], True, lineColor, 1, cv2.LINE_AA, shift)
-        cv2.polylines(img, [corners[[0, 1, 5, 4]].astype(int)], True, (255, 255, 255), 1, cv2.LINE_AA, shift)
+        cv2.polylines(img, [singleCorner[[2, 3, 7, 6]].astype(int)], True, lineColor, 2, cv2.LINE_AA, shift)
+        cv2.polylines(img, [singleCorner[:4].astype(int)], True, lineColor, 2, cv2.LINE_AA, shift)
+        cv2.polylines(img, [singleCorner[4:].astype(int)], True, lineColor, 2, cv2.LINE_AA, shift)
+        cv2.polylines(img, [singleCorner[[0, 1, 5, 4]].astype(int)], True, (255, 255, 255), 2, cv2.LINE_AA, shift)
 
     return img.astype(np.int32)
 
@@ -403,7 +403,7 @@ if __name__ == '__main__':
             pts_2d[:, 2] = np.clip(pts_2d[:, 2], a_min=1e-5, a_max=1e5)
             pts_2d[:, 0] /= pts_2d[:, 2]
             pts_2d[:, 1] /= pts_2d[:, 2]
-            imgfov_pts_2d = pts_2d[..., :2].reshape(num_bbox, 8, 2)
+            imgfov_pts_2d = pts_2d[..., :2].reshape(num_bbox, 8, 2)[sorted_indices]
 
             x_coords = imgfov_pts_2d[..., 0]
             y_coords = imgfov_pts_2d[..., 1]
